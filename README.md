@@ -1,8 +1,9 @@
  # DEPLOY
 YOU CAN SIMPLY DEPLOY ON HEROKU BY CLICKING THE BUTTON BELOW
 
-[![Deploy To Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/metagamersuniverse/testaibot.git)
-
+<a href="https://heroku.com/deploy?template=https://github.com/metagamersuniverse/testaibot.git">
+<img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
+</a>
 AFTER DEPLOY DO SET WEBHOOK BY ``api.telegram.org/bot<your bot token>/setwebhook?url=<Heroku URL>``
 
 # testaibot
@@ -15,7 +16,7 @@ Here are the steps to create a repository and deploy your code on Heroku:
     Create a file named Procfile with the following content:
 
 makefile
-
+https://github.com/metagamersuniverse/testaibot.git
 web: python app.py
 
     Create a file named app.py and copy the code you provided into it.

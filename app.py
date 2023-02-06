@@ -1,37 +1,33 @@
-import requests
-import uuid
+import os
+import telegram
+import replicae
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-# Constants
-TELEGRAM_API_URL = "https://api.telegram.org/bot6139635960:AAHLm6Zg3sYAVA_3UWwe4RW4wzInZQ_PumE/"
-BLIP_API_URL = "https://msging.net/messages"
-BLIP_API_KEY = "77d74707a1e5fdb73c828a26d4e2012a36db2dad"
+model = replicae.models.get("salesforce/blip")
+version = model.versions.get("2e1dddc8621f72155f24cf2e0adbde548458d3cab9f00c0139eea840d0ac4746")
 
-def receive_photo(update):
-    photo = update["message"]["photo"][-1]["file_id"]
-    photo_url = f"{TELEGRAM_API_URL}getFile?file_id={photo}"
-    photo_response = requests.get(photo_url)
-    photo_path = photo_response.json()["result"]["file_path"]
-    full_photo_url = f"https://api.telegram.org/file/bot6139635960:AAHLm6Zg3sYAVA_3UWwe4RW4wzInZQ_PumE/{photo_path}"
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Hi, I'm a Telegram bot powered by the BLIP model.")
 
-    # Send the photo to the BLiP API
-    headers = {
-        'Authorization': f'Key {BLIP_API_KEY}',
-        'Content-Type': 'application/json'
-    }
-    data = {
-        "id": str(uuid.uuid4()),
-        "to": "postmaster@msging.net",
-        "method": "post",
-        "uri": "/buckets/your_blip_bucket_id/collections/your_blip_collection_id/documents",
-        "type": "application/json",
-        "body": {
-            "url": full_photo_url
+def image_captioning(update, context):
+    photo = context.bot.getFile(update.message.photo[-1].file_id)
+    photo.download("image.jpg")
+    with open("image.jpg", "rb") as image:
+        inputs = {
+            'image': image,
+            'task': "image_captioning",
         }
-    }
-    response = requests.post(BLIP_API_URL, headers=headers, json=data)
-    description = response.json()["body"]["description"]
+        output = version.predict(**inputs)
+        context.bot.send_message(chat_id=update.effective_chat.id, text=output["caption"])
 
-    # Send the description back to the user
-    chat_id = update["message"]["chat"]["id"]
-    send_message_url = f"{TELEGRAM_API_URL}sendMessage?chat_id={chat_id}&text={description}"
-    requests.get(send_message_url)
+def main():
+    TELEGRAM_TOKEN = os.environ["5903455401:AAH0z6XK3NCzyC3LvoAaPXzsC6r9RpjXXCw"]
+    updater = Updater(token=TELEGRAM_TOKEN, use_context=True)
+    dp = updater.dispatcher
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(MessageHandler(Filters.photo, image_captioning))
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()

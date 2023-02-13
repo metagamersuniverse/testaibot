@@ -16,7 +16,10 @@ async def _(event):
     version = model.versions.get("27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478")
     output = version.predict(prompt=f"{title}")
     await event.client.send_file(event.chat_id, output, caption=None)
-
+    
+@imagebot.on(events.NewMessage(pattern="^[?!/]start"))
+async def _(event):
+    await event.reply("Heya...\ni can analyse your Pics.\nJust Send meh Your Pic/Sticker then get results.\n\nAlso Use /image <name> to Find Anything Pic.")
 
 @imagebot.on(events.NewMessage(incoming=True))
 async def _(event):

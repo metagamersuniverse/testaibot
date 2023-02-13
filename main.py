@@ -43,6 +43,7 @@ async def _(event):
         'task': "image_captioning",
     }
     output = version.predict(**inputs)
+    await event.reply(output)
     result = output.get('caption')
     result = result.replace("Caption: ","")
     await event.reply(result)

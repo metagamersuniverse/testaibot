@@ -6,7 +6,7 @@ API_HASH = "8026659a7682925e989360a85035396c"
 BOT_TOKEN = "6139635960:AAFEW4SQvo5s_g9HyqyCC7cw2qVpdqm96-c"
 imagebot = TelegramClient('imagebot', api_id=API_ID, api_hash=API_HASH)
 
-@imagebot.on(events.NewMessage(pattern="^[?!/]prompt"))
+@imagebot.on(events.NewMessage(pattern="^[?!/]image"))
 async def _(event):
     title = ' '.join(event.text[7:])
     if not title:
@@ -14,8 +14,8 @@ async def _(event):
         return
     model = replicate.models.get("stability-ai/stable-diffusion")
     version = model.versions.get("f178fa7a1ae43a9a9af01b833b9d2ecf97b1bcb0acfd2dc5dd04895e042863f1")
-    output = version.predict(**inputs)
-    await event.client.send_file(event.chat_id, output)
+    output = version.predict(prompt=f"{title}")
+    await event.client.send_file(event.chat_id, output, caption=None)
     
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]start"))

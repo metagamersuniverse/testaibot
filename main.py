@@ -19,7 +19,8 @@ async def _(event):
     
 @imagebot.on(events.NewMessage(pattern="^[?!/]start"))
 async def _(event):
-    await event.reply("Heya...\ni can analyse your Pics.\nJust Send meh Your Pic/Sticker then get results.\n\nAlso Use /image <name> to Find Anything Pic.")
+    welcome_message = "Hi! Welcome to AI POP. Send me a photo and I'll generate a description for you. Type 'help' if you need assistance. Let's get started!"
+    await event.reply(welcome_message)
 
 @imagebot.on(events.NewMessage(incoming=True))
 async def _(event):

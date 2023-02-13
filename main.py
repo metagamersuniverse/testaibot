@@ -6,10 +6,6 @@ API_HASH = "8026659a7682925e989360a85035396c"
 BOT_TOKEN = "6139635960:AAFEW4SQvo5s_g9HyqyCC7cw2qVpdqm96-c"
 imagebot = TelegramClient('imagebot', api_id=API_ID, api_hash=API_HASH)
 
-@imagebot.message_handler(commands=['start', 'hello'])
-def send_welcome(message):
-    bot.reply_to(message, "Howdy, how are you doing?")
-
 @imagebot.on(events.NewMessage(pattern="^[?!/]image"))
 async def _(event):
     title = ' '.join(event.text[7:])

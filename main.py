@@ -45,7 +45,7 @@ async def _(event):
     output = version.predict(**inputs)
     result = output.get('caption')
     result = result.replace("Caption: ","")
-    await event.reply(result, caption=None)
+    await event.reply(result)
 
 imagebot.start(bot_token=BOT_TOKEN)
 imagebot.run_until_disconnected()

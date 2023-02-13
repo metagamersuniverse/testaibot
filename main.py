@@ -8,10 +8,11 @@ imagebot = TelegramClient('imagebot', api_id=API_ID, api_hash=API_HASH)
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]image"))
 async def _(event):
-    title = ''.join(event.text[7:].split())
+    title = event.text[7:]
     if not title:
         await event.reply("Please give me a query.")
         return
+    title = title.replace(" ", "")
     model = replicate.models.get("stability-ai/stable-diffusion")
     version = model.versions.get("f178fa7a1ae43a9a9af01b833b9d2ecf97b1bcb0acfd2dc5dd04895e042863f1")
     inputs = {
@@ -26,6 +27,7 @@ async def _(event):
     }
     output = version.predict(**inputs)
     await event.client.send_file(event.chat_id, output, caption=None)
+
     
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]start"))

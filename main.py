@@ -25,7 +25,7 @@ async def _(event):
     
 @imagebot.on(events.NewMessage(pattern="^[?!/]help"))
 async def _(event):
-    help_message = "Hi! I'm here to help you with AI POP.\n\nTo get started, simply send me a photo and I'll generate a description for you.\n\nIf you need additional assistance, you can check out our guide at this link: https://docs.ai-pop.com/guides/ai-pop-bot-use\n\nIf you have any questions or need further assistance, feel free to ask!"
+    help_message = "Hi! I'm here to help you with bot.\n\nTo get started, simply send me a photo and I'll generate a description for you.\n\nIf you need additional assistance, you can check out our guide at this link: https://google.com\n\nIf you have any questions or need further assistance, feel free to ask!"
     await event.reply(help_message)
     
 @imagebot.on(events.NewMessage(incoming=True))

@@ -12,7 +12,8 @@ async def _(event):
     if not title:
         await event.reply("Please give me a query.")
         return
-    model = replicai.models.get("stability-ai/stable-diffusion")
+    title = title.replace(" ", "")
+    model = replicate.models.get("stability-ai/stable-diffusion")
     version = model.versions.get("f178fa7a1ae43a9a9af01b833b9d2ecf97b1bcb0acfd2dc5dd04895e042863f1")
     inputs = {
         'prompt': f"{title}",

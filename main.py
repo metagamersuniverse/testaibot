@@ -8,11 +8,11 @@ imagebot = TelegramClient('imagebot', api_id=API_ID, api_hash=API_HASH)
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]image"))
 async def _(event):
-    title = ' '.join(event.text[7:])
+    title = ''.join(event.text[7:].split())
     if not title:
         await event.reply("Please give me a query.")
         return
-    model = replicate.models.get("stability-ai/stable-diffusion")
+    model = replicai.models.get("stability-ai/stable-diffusion")
     version = model.versions.get("f178fa7a1ae43a9a9af01b833b9d2ecf97b1bcb0acfd2dc5dd04895e042863f1")
     inputs = {
         'prompt': f"{title}",

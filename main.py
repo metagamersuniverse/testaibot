@@ -3,7 +3,7 @@ import replicate
 
 API_ID = "25301791"
 API_HASH = "8026659a7682925e989360a85035396c"
-BOT_TOKEN = "6139635960:AAFEW4SQvo5s_g9HyqyCC7cw2qVpdqm96-c"
+BOT_TOKEN = "6248093145:AAEjbFKh9LkCLekaYlEgrZh69QM4_c9loZw"
 imagebot = TelegramClient('imagebot', api_id=API_ID, api_hash=API_HASH)
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]image"))
@@ -13,7 +13,7 @@ async def _(event):
         await event.reply("Please Give Meh A Query.")
         return
     model = replicate.models.get("stability-ai/stable-diffusion")
-    version = model.versions.get("27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478")
+    version = model.versions.get("de37751f75135f7ebbe62548e27d6740d5155dfefdf6447db35c9865253d7e06")
     output = version.predict(prompt=f"{title}")
     await event.client.send_file(event.chat_id, output, caption=None)
     
@@ -36,8 +36,8 @@ async def _(event):
         await event.reply("```Don't send Just text please.Please send A Sticker / Image.```")
         return
     file = await event.client.download_media(event.media)
-    model = replicate.models.get("salesforce/blip")
-    version = model.versions.get("2e1dddc8621f72155f24cf2e0adbde548458d3cab9f00c0139eea840d0ac4746")
+    model = replicate.models.get("j-min/clip-caption-reward")
+    version = model.versions.get("de37751f75135f7ebbe62548e27d6740d5155dfefdf6447db35c9865253d7e06")
     inputs = {
         'image': open(file, "rb"),
         'task': "image_captioning",

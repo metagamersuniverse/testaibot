@@ -17,16 +17,17 @@ async def _(event):
     output = version.predict(prompt=f"{title}")
     await event.client.send_file(event.chat_id, output, caption=None)
     
-    @imagebot.on(events.NewMessage(pattern="^[?!/]help"))
-async def _(event):
-    help_message = "Hi! I'm here to help you with AI POP.\n\nTo get started, simply send me a photo and I'll generate a description for you.\n\nIf you need additional assistance, you can check out our guide at this link: https://docs.ai-pop.com/guides/ai-pop-bot-use\n\nIf you have any questions or need further assistance, feel free to ask!"
-    await event.reply(help_message)
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]start"))
 async def _(event):
     welcome_message = "Hi! Welcome to bot. Send me a photo and I'll generate a description for you. Type 'help' if you need assistance. Let's get started!"
     await event.reply(welcome_message)
-
+    
+@imagebot.on(events.NewMessage(pattern="^[?!/]help"))
+async def _(event):
+    help_message = "Hi! I'm here to help you with AI POP.\n\nTo get started, simply send me a photo and I'll generate a description for you.\n\nIf you need additional assistance, you can check out our guide at this link: https://docs.ai-pop.com/guides/ai-pop-bot-use\n\nIf you have any questions or need further assistance, feel free to ask!"
+    await event.reply(help_message)
+    
 @imagebot.on(events.NewMessage(incoming=True))
 async def _(event):
     if event.text.startswith("/"):

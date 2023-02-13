@@ -3,7 +3,7 @@ import replicate
 
 API_ID = "25301791"
 API_HASH = "8026659a7682925e989360a85035396c"
-BOT_TOKEN = "6139635960:AAFEW4SQvo5s_g9HyqyCC7cw2qVpdqm96-c"
+BOT_TOKEN = "6248093145:AAEjbFKh9LkCLekaYlEgrZh69QM4_c9loZw"
 imagebot = TelegramClient('imagebot', api_id=API_ID, api_hash=API_HASH)
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]image"))

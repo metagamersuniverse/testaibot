@@ -23,7 +23,7 @@ async def _(event):
     if event.text.startswith("/"):
         return
     if not event.media:
-        await event.reply("```Please Give Meh A Sticker / Image.```")
+        await event.reply("```Don't send Just text please.Please send A Sticker / Image.```")
         return
     file = await event.client.download_media(event.media)
     model = replicate.models.get("salesforce/blip")

@@ -14,8 +14,8 @@ async def _(event):
         return
     model = replicate.models.get("stability-ai/stable-diffusion")
     version = model.versions.get("f178fa7a1ae43a9a9af01b833b9d2ecf97b1bcb0acfd2dc5dd04895e042863f1")
-    output = version.predict(prompt=f"{title}")
-    await event.client.send_file(event.chat_id, output, caption=None)
+    output = version.predict(**inputs)
+    await event.client.send_file(event.chat_id, output)
     
 
 @imagebot.on(events.NewMessage(pattern="^[?!/]start"))

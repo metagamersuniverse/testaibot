@@ -43,7 +43,7 @@ async def _(event):
         'task': "image_captioning",
     }
     output = version.predict(**inputs)
-    await event.reply(output, caption=None)
+    await event.reply(output)
 
 imagebot.start(bot_token=BOT_TOKEN)
 imagebot.run_until_disconnected()
